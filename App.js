@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import {StyleSheet, View, SafeAreaView} from 'react-native';
-import {Button, Divider, Text, Slider} from "@rneui/themed";
+import {StyleSheet, View} from 'react-native';
+import {Button, Text, Slider} from "@rneui/themed";
 import {useEffect, useRef, useState} from "react";
 import {useKeepAwake} from "expo-keep-awake";
 import * as Speech from 'expo-speech';
 import {Audio} from 'expo-av';
 
-function Counter(props) {
+function Counter() {
+    /*global require, console, setInterval, clearInterval*/
     const [count, setCount] = useState(0);
     const [maxCount, setMaxCount] = useState(6);
     const [maxReps, setMaxReps] = useState(10);
@@ -24,19 +25,18 @@ function Counter(props) {
             }
         } catch (e) {
             console.log(e);
-            return;
         }
     }
 
     const countout = () => {
-        if(count > 1 && count % maxCount == 0){
+        if(count > 1 && count % maxCount === 0){
             const reps = Math.floor(count / maxCount);
-            if (reps == maxReps){
+            if (reps === maxReps){
                 Speech.speak('finished',{language: 'en-US'});
             } else {
                 Speech.speak(reps.toString(),{language: 'en-US'});
             }
-        } else if(count != 0) {
+        } else if(count !== 0) {
             playSound();
         }
     }
